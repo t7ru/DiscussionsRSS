@@ -126,11 +126,17 @@ func fetchThreads(client *http.Client, cfg *config) ([]entry, error) {
 }
 
 func truncate(s string, max int) string {
-	runes := []rune(s)
-	if len(runes) <= max {
+	if len(s) <= max {
 		return s
 	}
-	return string(runes[:max]) + "…"
+	count := 0
+	for i := range s {
+		if count == max {
+			return s[:i] + "…"
+		}
+		count++
+	}
+	return s
 }
 
 func buildAtom(entries []entry, cfg *config) ([]byte, error) {
