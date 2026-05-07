@@ -153,6 +153,7 @@ func buildAtom(entries []entry, cfg *config) ([]byte, error) {
 		ID:      base + "/f",
 		Updated: updated,
 		Link:    atomLink{Href: base + "/f", Rel: "alternate"},
+		Entries: make([]atomEntry, 0, len(entries)),
 	}
 
 	for _, e := range entries {
@@ -188,6 +189,7 @@ func buildRSS(entries []entry, cfg *config) ([]byte, error) {
 		Link:        base + "/f",
 		Description: cfg.feedDesc(),
 		PubDate:     pubDate,
+		Items:       make([]rssItem, 0, len(entries)),
 	}
 
 	for _, e := range entries {
